@@ -72,26 +72,6 @@ socialLoginRoutes.get(
 		res.send("you reached the callback URI");
 	}
 );
-
-// Reddit
-
-socialLoginRoutes.get(
-	"/reddit",(req,res,next)=>{
-	req.session.state = crypto.randomBytes(32).toString('hex');
-	passport.authenticate('reddit', {
-	state: req.session.state,
-	})(req,res,next)
-	})
-	
-	socialLoginRoutes.get(
-	"/reddit/redirect",
-	passport.authenticate('reddit',{ failureRedirect: '/login' }),
-	authLogic.spotifyAuth,
-	(req, res) => {
-	console.log('hi')
-	res.send("you reached the callback URI");
-	}
-	);
   
 
 module.exports = socialLoginRoutes;
